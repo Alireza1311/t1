@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}{{ form.instance.title|default:"New Post" }} | Heritage Atlas{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container-fluid px-lg-5">
+        <h1 class="display-4">{% if form.instance.pk %}Edit Post{% else %}Create New Post{% endif %}</h1>
+        <p class="lead">Craft long-form stories with rich context and descriptive detail.</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container-fluid px-lg-5">
+        <form method="post" enctype="multipart/form-data" class="p-4 border rounded-4 bg-white shadow-sm">
+            {% csrf_token %}
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <label class="form-label">Title</label>
+                    {{ form.title }}
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-label">Slug</label>
+                    {{ form.slug }}
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-label">Country</label>
+                    {{ form.country }}
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-label">City or Region</label>
+                    {{ form.city_or_region }}
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Hero Image</label>
+                    {{ form.hero_image }}
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Short Description</label>
+                    {{ form.short_description }}
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Full Description</label>
+                    {{ form.full_description }}
+                </div>
+            </div>
+            <div class="mt-4 d-flex gap-3">
+                <button class="btn btn-dark btn-lg" type="submit">Save Post</button>
+                <a class="btn btn-outline-secondary btn-lg" href="{% url 'dashboard' %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
