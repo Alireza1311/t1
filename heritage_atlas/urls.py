@@ -11,8 +11,7 @@ urlpatterns = [
     path("", include("pages.urls")),
     path("", include("blog.urls")),
     path("login/", auth_views.LoginView.as_view(template_name="registration/login.html", authentication_form=LoginForm), name="login"),
-    path("logout/", auth_views.LogoutView.as_view(next_page="/"), name="logout"),
-]
+    path("logout/", auth_views.LogoutView.as_view(next_page="/"), name="logout"),]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

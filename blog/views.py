@@ -22,34 +22,35 @@ def blog_list(request):
     if country:
         posts = posts.filter(country__iexact=country)
 
-    static_posts = [
-        SimpleNamespace(
-            title="Hidden Courtyards of Old Prague",
-            slug="static-prague-courtyards",
-            country="Czech Republic",
-            city_or_region="Prague",
-            short_description=(
-                "A visual stroll through the tucked-away passageways and quiet squares "
-                "that reveal Prague's layered architectural heritage."
-            ),
-            hero_image_path="images/prague-old-town-square.jpg",
-            is_static=True,
-            created_at=timezone.now(),
-        ),
-        SimpleNamespace(
-            title="The Story in Stone",
-            slug="static-stone-story",
-            country="Italy",
-            city_or_region="Tuscany",
-            short_description=(
-                "Two timeless masonry scenes captured in the golden light of Tuscany, "
-                "showing how history lingers in every arch and facade."
-            ),
-            hero_image_path="images/istockphoto-696640698-1024x1024.jpg",
-            is_static=True,
-            created_at=timezone.now() - timezone.timedelta(days=1),
-        ),
-    ]
+    # static_posts = [
+    #     SimpleNamespace(
+    #         title="Hidden Courtyards of Old Prague",
+    #         slug="static-prague-courtyards",
+    #         country="Czech Republic",
+    #         city_or_region="Prague",
+    #         short_description=(
+    #             "A visual stroll through the tucked-away passageways and quiet squares "
+    #             "that reveal Prague's layered architectural heritage."
+    #         ),
+    #         hero_image_path="images/prague-old-town-square.jpg",
+    #         is_static=True,
+    #         created_at=timezone.now(),
+    #     ),
+    #     SimpleNamespace(
+    #         title="The Story in Stone",
+    #         slug="static-stone-story",
+    #         country="Italy",
+    #         city_or_region="Tuscany",
+    #         short_description=(
+    #             "Two timeless masonry scenes captured in the golden light of Tuscany, "
+    #             "showing how history lingers in every arch and facade."
+    #         ),
+    #         hero_image_path="images/istockphoto-696640698-1024x1024.jpg",
+    #         is_static=True,
+    #         created_at=timezone.now() - timezone.timedelta(days=1),
+    #     ),
+    # ]
+    static_posts=[]
 
     filtered_static_posts = static_posts
     if query:
