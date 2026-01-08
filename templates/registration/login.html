@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Login | Heritage Atlas{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container-fluid px-lg-5">
+        <h1 class="display-4">Login</h1>
+        <p class="lead">Access the Heritage Atlas dashboard to manage posts.</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container-fluid px-lg-5">
+        <form method="post" class="p-4 border rounded-4 bg-white shadow-sm" style="max-width: 520px;">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                {{ form.username }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                {{ form.password }}
+            </div>
+            <button class="btn btn-dark btn-lg" type="submit">Login</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

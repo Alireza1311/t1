@@ -1,0 +1,54 @@
+body {
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+    line-height: 1.7;
+    color: #1e1f23;
+}
+
+.hero-section {
+    min-height: 70vh;
+    background-size: cover;
+    background-position: center;
+    padding: 6rem 0;
+}
+
+.letter-spacing {
+    letter-spacing: 0.3em;
+    font-weight: 600;
+}
+
+.card img {
+    object-fit: cover;
+    height: 100%;
+}
+
+.content-article h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+.content-article p {
+    font-size: 1.1rem;
+}
+
+.content-article ul {
+    margin-bottom: 1.5rem;
+}
+
+.footer h4 {
+    font-size: 1.25rem;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+}
+
+form input, form textarea, form select {
+    border-radius: 0.75rem;
+}
+
+@media (min-width: 992px) {
+    .hero-section {
+        min-height: 80vh;
+    }
+}
