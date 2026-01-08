@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Contact | Heritage Atlas{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container-fluid px-lg-5">
+        <h1 class="display-3">Contact Heritage Atlas</h1>
+        <p class="lead">Share a landmark, request a story, or start a collaboration. We read every message.</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container-fluid px-lg-5">
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <h2 class="display-5">Send a Message</h2>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+                <form method="post" class="p-4 border rounded-4 bg-white shadow-sm">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Subject</label>
+                        {{ form.subject }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Message</label>
+                        {{ form.message }}
+                    </div>
+                    <button class="btn btn-dark btn-lg" type="submit">Send message</button>
+                </form>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="display-5">FAQ</h2>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne">
+                                How do you choose landmarks?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">We prioritize sites with deep cultural resonance, layered history, and strong visual presence. Reader suggestions are welcome.</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo">
+                                Can I submit photography?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">Yes. We collaborate with photographers and visual researchers. Include a link to your portfolio.</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree">
+                                How quickly will you respond?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">We typically respond within 3-5 business days. During field research trips, responses may take longer.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

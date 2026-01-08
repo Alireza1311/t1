@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Heritage Atlas{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container-fluid px-lg-5">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div>
+                <h1 class="display-4">Dashboard</h1>
+                <p class="lead">Manage your Heritage Atlas posts and update your stories.</p>
+            </div>
+            <a class="btn btn-dark btn-lg" href="{% url 'post_create' %}">Create New Post</a>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container-fluid px-lg-5">
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Country</th>
+                        <th>Created</th>
+                        <th>Views</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in posts %}
+                        <tr>
+                            <td>{{ post.title }}</td>
+                            <td>{{ post.country }}</td>
+                            <td>{{ post.created_at|date:"M d, Y" }}</td>
+                            <td>{{ post.views }}</td>
+                            <td>
+                                <a class="btn btn-sm btn-outline-secondary" href="{{ post.get_absolute_url }}">View</a>
+                                <a class="btn btn-sm btn-outline-dark" href="{% url 'post_edit' post.slug %}">Edit</a>
+                                <a class="btn btn-sm btn-outline-danger" href="{% url 'post_delete' post.slug %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="5">No posts yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

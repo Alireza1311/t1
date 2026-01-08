@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+{% load media_extras %}
+
+{% block title %}Heritage Atlas | Home{% endblock %}
+
+{% block content %}
+<section class="hero-section text-light d-flex align-items-center" style="background-image: url('{% static "images/placeholder.svg" %}');">
+    <div class="container-fluid px-lg-5">
+        <div class="row">
+            <div class="col-lg-7">
+                <p class="text-uppercase letter-spacing">Heritage Atlas</p>
+                <h1 class="display-2 fw-bold">A modern atlas of cultural memory and landmark storytelling.</h1>
+                <p class="lead">Follow long-form narratives about historic skylines, sacred rooms, ceremonial streets, and living rituals across the globe.</p>
+                <a class="btn btn-warning btn-lg mt-3" href="/blog/">Explore the Blog</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container-fluid px-lg-5">
+        <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
+            <div>
+                <h2 class="display-5">Featured Posts</h2>
+                <p class="lead">Six landmarks that define cities through silhouette, memory, and ritual.</p>
+            </div>
+            <a class="btn btn-outline-dark" href="/blog/">View all posts</a>
+        </div>
+        <div class="row g-4">
+            {% for post in featured_posts %}
+                <div class="col-md-6 col-xl-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="{{ post.hero_image|image_or_placeholder }}" class="card-img-top" alt="{{ post.title }}">
+                        <div class="card-body p-4">
+                            <p class="text-uppercase text-muted small mb-2">{{ post.country }}</p>
+                            <h3 class="card-title h4">{{ post.title }}</h3>
+                            <p class="card-text">{{ post.short_description|truncatewords:28 }}</p>
+                            <a class="stretched-link" href="{{ post.get_absolute_url }}">Read more</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No posts yet. Run the seed command to create content.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container-fluid px-lg-5">
+        <h2 class="display-5 mb-4">Explore by Country</h2>
+        <div class="d-flex flex-wrap gap-3">
+            {% for country in countries %}
+                <a class="btn btn-outline-secondary btn-lg" href="/blog/?country={{ country }}">{{ country }}</a>
+            {% empty %}
+                <span class="text-muted">Add posts to reveal countries.</span>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container-fluid px-lg-5">
+        <h2 class="display-5 mb-4">Era Highlights</h2>
+        <div class="row g-4">
+            <div class="col-md-6 col-xl-3">
+                <div class="p-4 border rounded-4 h-100">
+                    <h4>Ancient Cities</h4>
+                    <p>Walk through grid-planned capitals, ritual avenues, and monumental plazas that defined civic identity.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="p-4 border rounded-4 h-100">
+                    <h4>Medieval Networks</h4>
+                    <p>Follow trade routes, fortified skylines, and the persistent geometry of historic town centers.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="p-4 border rounded-4 h-100">
+                    <h4>Renaissance Renewal</h4>
+                    <p>Witness the rise of public art, architectural ambition, and city-scale storytelling.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="p-4 border rounded-4 h-100">
+                    <h4>Modern Rituals</h4>
+                    <p>Explore the living traditions and community gatherings that turn everyday spaces into landmarks.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container-fluid px-lg-5">
+        <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
+            <div>
+                <h2 class="display-5">Popular Reads</h2>
+                <p class="lead">The most visited stories from our readers and researchers.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            {% for post in popular_posts %}
+                <div class="col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <p class="text-uppercase text-muted small mb-2">{{ post.country }}</p>
+                            <h3 class="h4">{{ post.title }}</h3>
+                            <p>{{ post.short_description|truncatewords:30 }}</p>
+                            <a class="stretched-link" href="{{ post.get_absolute_url }}">Read story</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No popular posts yet. Visit a post to build view counts.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container-fluid px-lg-5">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-6">
+                <h2 class="display-5">Join the Heritage Atlas Newsletter</h2>
+                <p class="lead">Monthly dispatches featuring new long-form stories, curated travel notes, and photo essays.</p>
+                <ul class="list-unstyled">
+                    <li>✔︎ Deep dives into cultural landmarks</li>
+                    <li>✔︎ Expert interviews and field notes</li>
+                    <li>✔︎ Curated reading lists for explorers</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <form class="p-4 bg-light rounded-4 shadow-sm">
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control form-control-lg" placeholder="Your name">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control form-control-lg" placeholder="name@example.com">
+                    </div>
+                    <button type="button" class="btn btn-dark btn-lg">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
