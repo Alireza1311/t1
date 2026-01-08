@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Post | Heritage Atlas{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container-fluid px-lg-5">
+        <h1 class="display-4">Delete Post</h1>
+        <p class="lead">This action cannot be undone.</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container-fluid px-lg-5">
+        <form method="post" class="p-4 border rounded-4 bg-white shadow-sm">
+            {% csrf_token %}
+            <p class="fs-4">Are you sure you want to delete <strong>{{ object.title }}</strong>?</p>
+            <div class="mt-4 d-flex gap-3">
+                <button class="btn btn-danger btn-lg" type="submit">Delete</button>
+                <a class="btn btn-outline-secondary btn-lg" href="{% url 'dashboard' %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

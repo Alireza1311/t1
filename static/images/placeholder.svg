@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Placeholder image">
+  <rect width="1200" height="800" fill="#d8dbe2" />
+  <rect x="80" y="80" width="1040" height="640" fill="#f1f3f7" stroke="#c2c7d0" stroke-width="8"/>
+  <text x="50%" y="48%" text-anchor="middle" fill="#6b7280" font-family="Arial, sans-serif" font-size="48">Heritage Atlas</text>
+  <text x="50%" y="56%" text-anchor="middle" fill="#9aa0aa" font-family="Arial, sans-serif" font-size="28">Image placeholder</text>
+</svg>

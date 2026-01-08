@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load media_extras %}
+{% load formatting %}
+
+{% block title %}{{ post.title }} | Heritage Atlas{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container-fluid px-lg-5">
+        <a class="text-decoration-none" href="{{ back_url }}">&larr; Back</a>
+        <div class="row g-4 align-items-center mt-2">
+            <div class="col-lg-6">
+                <h1 class="display-3">{{ post.title }}</h1>
+                <p class="lead">{{ post.short_description }}</p>
+                <div class="d-flex flex-wrap gap-3 text-muted">
+                    <span>{{ post.country }}</span>
+                    {% if post.city_or_region %}<span>• {{ post.city_or_region }}</span>{% endif %}
+                    <span>• {{ post.created_at|date:"F j, Y" }}</span>
+                    <span>• {{ post.views }} reads</span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="{{ post.hero_image|image_or_placeholder }}" class="img-fluid rounded-4 shadow-sm" alt="{{ post.title }}">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container-fluid px-lg-5">
+        <div class="content-article">
+            {{ post.full_description|render_markdown }}
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container-fluid px-lg-5">
+        <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
+            <div>
+                <h2 class="display-5">Related Posts from {{ post.country }}</h2>
+                <p class="lead">More landmarks sharing the same cultural geography.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            {% for related in related_posts %}
+                <div class="col-md-6 col-xl-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="{{ related.hero_image|image_or_placeholder }}" class="card-img-top" alt="{{ related.title }}">
+                        <div class="card-body p-4">
+                            <p class="text-uppercase text-muted small mb-2">{{ related.country }}</p>
+                            <h3 class="h5">{{ related.title }}</h3>
+                            <p>{{ related.short_description|truncatewords:22 }}</p>
+                            <a class="stretched-link" href="{{ related.get_absolute_url }}">Read more</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No related posts yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
