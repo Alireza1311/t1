@@ -1,8 +1,11 @@
+from types import SimpleNamespace
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import F
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
@@ -19,15 +22,62 @@ def blog_list(request):
     if country:
         posts = posts.filter(country__iexact=country)
 
-    paginator = Paginator(posts, 6)
+    static_posts = [
+        SimpleNamespace(
+            title="Hidden Courtyards of Old Prague",
+            slug="static-prague-courtyards",
+            country="Czech Republic",
+            city_or_region="Prague",
+            short_description=(
+                "A visual stroll through the tucked-away passageways and quiet squares "
+                "that reveal Prague's layered architectural heritage."
+            ),
+            hero_image_path="images/prague-old-town-square.jpg",
+            is_static=True,
+            created_at=timezone.now(),
+        ),
+        SimpleNamespace(
+            title="The Story in Stone",
+            slug="static-stone-story",
+            country="Italy",
+            city_or_region="Tuscany",
+            short_description=(
+                "Two timeless masonry scenes captured in the golden light of Tuscany, "
+                "showing how history lingers in every arch and facade."
+            ),
+            hero_image_path="images/istockphoto-696640698-1024x1024.jpg",
+            is_static=True,
+            created_at=timezone.now() - timezone.timedelta(days=1),
+        ),
+    ]
+
+    filtered_static_posts = static_posts
+    if query:
+        filtered_static_posts = [
+            post
+            for post in filtered_static_posts
+            if query.lower() in post.title.lower()
+        ]
+    if country:
+        filtered_static_posts = [
+            post
+            for post in filtered_static_posts
+            if post.country.lower() == country.lower()
+        ]
+
+    combined_posts = list(posts) + filtered_static_posts
+    combined_posts.sort(key=lambda post: post.created_at, reverse=True)
+
+    paginator = Paginator(combined_posts, 6)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
-    countries = (
+    db_countries = (
         Post.objects.values_list("country", flat=True)
         .order_by("country")
         .distinct()
     )
+    countries = sorted({*db_countries, *(post.country for post in static_posts)})
     context = {
         "page_obj": page_obj,
         "query": query,

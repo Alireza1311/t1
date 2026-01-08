@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load media_extras %}
+{% load static %}
 
 {% block title %}Blog | Heritage Atlas{% endblock %}
 
@@ -38,14 +39,20 @@
                     <div class="card h-100 border-0 shadow-sm">
                         <div class="row g-0 h-100">
                             <div class="col-md-5">
-                                <img src="{{ post.hero_image|image_or_placeholder }}" class="img-fluid h-100 object-fit-cover" alt="{{ post.title }}">
+                                {% if post.is_static %}
+                                    <img src="{% static post.hero_image_path %}" class="img-fluid h-100 object-fit-cover" alt="{{ post.title }}">
+                                {% else %}
+                                    <img src="{{ post.hero_image|image_or_placeholder }}" class="img-fluid h-100 object-fit-cover" alt="{{ post.title }}">
+                                {% endif %}
                             </div>
                             <div class="col-md-7">
                                 <div class="card-body p-4">
                                     <p class="text-uppercase text-muted small mb-2">{{ post.country }}{% if post.city_or_region %} • {{ post.city_or_region }}{% endif %}</p>
                                     <h3 class="h4">{{ post.title }}</h3>
                                     <p>{{ post.short_description|truncatewords:35 }}</p>
-                                    <a class="stretched-link" href="{{ post.get_absolute_url }}">Read more</a>
+                                    {% if not post.is_static %}
+                                        <a class="stretched-link" href="{{ post.get_absolute_url }}">Read more</a>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
